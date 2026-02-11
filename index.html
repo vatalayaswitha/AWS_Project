@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Platform Overview{% endblock %}
+{% block content %}
+<div class="row mb-5">
+    <div class="col-12 text-center">
+        <h1 class="fw-bold mb-3">
+            <i class="fas fa-layer-group text-primary me-3"></i>Platform Overview
+        </h1>
+        <p class="lead text-muted">Complete AWS AI Marketing Solution</p>
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-lg h-100">
+            <div class="card-body p-5">
+                <h3 class="fw-bold text-primary mb-4">
+                    <i class="fas fa-cogs me-2"></i>Core Architecture
+                </h3>
+                <div class="row text-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="p-3 bg-light rounded-circle mx-auto mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-database fa-2x text-primary"></i>
+                        </div>
+                        <h6 class="fw-bold">DynamoDB</h6>
+                        <small class="text-muted">Customer Data</small>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="p-3 bg-light rounded-circle mx-auto mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-brain fa-2x text-success"></i>
+                        </div>
+                        <h6 class="fw-bold">Personalize</h6>
+                        <small class="text-muted">Recommendations</small>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="p-3 bg-light rounded-circle mx-auto mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-robot fa-2x text-warning"></i>
+                        </div>
+                        <h6 class="fw-bold">Bedrock</h6>
+                        <small class="text-muted">Content Gen</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-lg h-100">
+            <div class="card-body p-5">
+                <h3 class="fw-bold text-success mb-4">
+                    <i class="fas fa-bolt me-2"></i>Key Features
+                </h3>
+                <ul class="list-unstyled">
+                    <li class="mb-3 p-3 bg-light rounded">
+                        <i class="fas fa-check-circle text-success me-3"></i>
+                        <strong>Real-time Personalization</strong> - AWS Personalize ML models
+                    </li>
+                    <li class="mb-3 p-3 bg-light rounded">
+                        <i class="fas fa-check-circle text-success me-3"></i>
+                        <strong>Multi-channel Delivery</strong> - Email, SMS, Push
+                    </li>
+                    <li class="mb-3 p-3 bg-light rounded">
+                        <i class="fas fa-check-circle text-success me-3"></i>
+                        <strong>AI Content Generation</strong> - Bedrock powered
+                    </li>
+                    <li class="p-3 bg-light rounded">
+                        <i class="fas fa-check-circle text-success me-3"></i>
+                        <strong>Performance Analytics</strong> - Real-time tracking
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

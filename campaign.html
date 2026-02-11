@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}New Campaign - AWS AI Marketing{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="fw-bold mb-3">
+            {% if campaign %}Edit{% else %}Create{% endif %} Campaign
+            <i class="fas fa-bullhorn text-success ms-3"></i>
+        </h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent p-0">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Campaign</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-gradient-primary text-white p-4">
+                <h4 class="mb-0 fw-bold">
+                    <i class="fas fa-palette me-2"></i>Campaign Details
+                </h4>
+            </div>
+            <form method="POST" action="{{ url_for('create_campaign') }}">
+                <div class="card-body p-5">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-bold">Campaign Name</label>
+                            <input type="text" class="form-control form-control-lg" name="name" required>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-bold">Channel</label>
+                            <select class="form-select form-control-lg" name="type" required>
+                                <option value="email">Email</option>
+                                <option value="sms">SMS</option>
+                                <option value="push">Push Notification</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <label class="form-label fw-bold">Target Customers</label>
+                        <select class="form-select" name="customers" multiple size="8" required>
+                            {% for customer in customers %}
+                            <option value="{{ customer.id }}">
+                                {{ customer.name }} ({{ customer.email }}) - ${{ customer.lifetime_value }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text">
+                            Hold Ctrl/Cmd to select multiple customers. AI will generate personalized content for each.
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success btn-lg px-5 fw-bold">
+                            <i class="fas fa-magic me-2"></i>
+                            Generate AI Campaign
+                            <span class="badge bg-light text-dark ms-2">AWS Personalize + Bedrock</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-lg h-100">
+            <div class="card-header bg-info text-white p-4">
+                <h5 class="mb-0 fw-bold">
+                    <i class="fas fa-lightbulb me-2"></i>AI Preview
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <div id="aiPreview">
+                    <div class="text-center p-5 text-muted">
+                        <i class="fas fa-brain fa-3x mb-3 opacity-50"></i>
+                        <p>Select customers to see AI-generated personalized content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

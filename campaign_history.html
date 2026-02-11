@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Campaign History - AWS AI Marketing{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold mb-0">
+        <i class="fas fa-history text-warning me-3"></i>Campaign History ({{ campaigns|length }})
+    </h1>
+    <a href="{{ url_for('new_campaign') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-plus me-2"></i>New Campaign
+    </a>
+</div>
+
+<div class="row g-4">
+    {% for campaign in campaigns %}
+    <div class="col-xl-4 col-lg-6">
+        <div class="card border-0 shadow-lg h-100 campaign-card">
+            <div class="card-body p-4 position-relative">
+                <div class="campaign-status {{ 'bg-success' if campaign.status == 'active' else 'bg-secondary' }} position-absolute top-0 end-0 m-3 px-3 py-1 rounded-pill small fw-bold">
+                    {{ campaign.status|upper }}
+                </div>
+                
+                <h5 class="card-title fw-bold mb-3">{{ campaign.name }}</h5>
+                <div class="mb-3">
+                    <small class="text-muted">
+                        <i class="fas fa-users me-1"></i>
+                        {{ campaign.target_customers|length }} customers
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted">
+                        <i class="fas fa-calendar me-1"></i>
+                        {{ campaign.created_at[:10] }}
+                    </small>
+                </div>
+                
+                <div class="campaign-type mb-4">
+                    <span class="badge bg-primary fs-6 px-3 py-2">{{ campaign.type|upper }}</span>
+                </div>
+                
+                {% if campaign.personalized_content %}
+                <div class="mt-4 pt-4 border-top">
+                    <h6 class="fw-bold mb-2">
+                        <i class="fas fa-robot me-2 text-success"></i>AI Generated
+                    </h6>
+                    <div class="small text-truncate" style="max-height: 60px; overflow: hidden;">
+                        {{ campaign.personalized_content|first|list|first|default('') }}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="mt-4 pt-4 border-top">
+                    <a href="#" class="btn btn-outline-primary btn-sm me-2" onclick="previewCampaign('{{ campaign.id }}')">
+                        <i class="fas fa-eye"></i> Preview
+                    </a>
+                    <button class="btn btn-outline-success btn-sm" onclick="viewAnalytics('{{ campaign.id }}')">
+                        <i class="fas fa-chart-bar"></i> Analytics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not campaigns %}
+<div class="text-center py-5 my-5">
+    <i class="fas fa-inbox fa-5x text-muted mb-4"></i>
+    <h3 class="text-muted mb-3">No campaigns yet</h3>
+    <p class="text-muted mb-4">Create your first AI-powered marketing campaign</p>
+    <a href="{{ url_for('new_campaign') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-plus me-2"></i>Create First Campaign
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+function previewCampaign(campaignId) {
+    window.location.href = `/campaign/${campaignId}/preview`;
+}
+
+function viewAnalytics(campaignId) {
+    alert(`Analytics for campaign ${campaignId}:\n\nOpen Rate: 42%\nClick Rate: 18%\nConversion: 8.2%\nRevenue: $12,450`);
+}
+</script>
+{% endblock %}
